@@ -1,0 +1,99 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="mytodoapp">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Node/Angular Todo App</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"><!-- load bootstrap -->
+    <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css"><!-- load bootstrap -->
+    <style >
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:50px; }
+        .editLink{
+            display: inline-block;
+            float: right;
+            margin-right: 10px;
+        }
+        #todo-list              { margin-bottom:20px; }
+    </style>
+
+    <!-- SPELLS -->
+    <script src="js/angular.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.13.0.js"></script>
+    <script src="js/core.js"></script>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body ng-controller="mainController">
+
+    <div class="container">
+
+        <!-- HEADER AND TODO COUNT -->
+        <div class="jumbotron text-center">
+            <h1>I'm a Todo-aholic <span class="label label-info">{{todos.length}}</span></h1>
+        </div>
+
+        <!-- TODO LIST -->
+        <div id="todo-list" class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+
+                <!-- LOOP OVER THE TODOS IN $scope.todos -->
+                <div class="checkbox" ng-repeat="todo in todos">
+                    <label>
+                        {{ todo.text }}
+
+                        <a href="#" ng-click="deleteTodo(todo._id)" class="editLink">
+                            <i class="fa fa-times"></i>
+                        </a>
+                        <a href="#" ng-click="open(todo)" class="editLink">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title">Im a modal!</h3>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control input-lg" ng-model="editFormData">
+
+                <input type="hidden" ng-model="editFormId" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+
+        <!-- FORM TO CREATE TODOS -->
+        <div id="todo-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" class="form-control input-lg text-center" placeholder="I want to buy a puppy that will love me forever" ng-model="formData">
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+</html>
